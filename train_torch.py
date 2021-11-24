@@ -237,4 +237,4 @@ if __name__ == "__main__":
         logging.info('best model path {}'.format(checkpoint_callback.best_model_path))
     if args.chat:
         model = KoGPT2Chat.load_from_checkpoint(args.model_params)
-        model.chat(q)
+        model.chat()
