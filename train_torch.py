@@ -208,7 +208,7 @@ class KoGPT2Chat(LightningModule):
               break
             a += gen.replace('▁', ' ')
           print("Chatbot > {}".format(a.strip()))
-         return q
+        return q
 
 
 parser = KoGPT2Chat.add_model_specific_args(parser)
