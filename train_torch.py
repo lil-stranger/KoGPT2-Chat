@@ -191,7 +191,7 @@ class KoGPT2Chat(LightningModule):
             shuffle=True, collate_fn=self._collate_fn)
         return train_dataloader
 
-    def chat(self, sent='0', q):
+    def chat(self, sent='0', q=None):
         tok = TOKENIZER
         sent_tokens = tok.tokenize(sent)
         with torch.no_grad():
