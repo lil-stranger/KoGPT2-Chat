@@ -191,26 +191,24 @@ class KoGPT2Chat(LightningModule):
             shuffle=True, collate_fn=self._collate_fn)
         return train_dataloader
 
-    def chat(self, sent='0', q=None):
+    def chat(self, sent='0'):
         tok = TOKENIZER
         sent_tokens = tok.tokenize(sent)
         with torch.no_grad():
-            while 1:
-                #q = input('user > ').strip()
-                if q == 'quit':
-                    break
-                a = ''
-                while 1:
-                    input_ids = torch.LongTensor(tok.encode(U_TKN + q + SENT + sent + S_TKN + a)).unsqueeze(dim=0)
-                    pred = self(input_ids)
-                    gen = tok.convert_ids_to_tokens(
-                        torch.argmax(
-                            pred,
-                            dim=-1).squeeze().numpy().tolist())[-1]
-                    if gen == EOS:
-                        break
-                    a += gen.replace('▁', ' ')
-                print("Chatbot > {}".format(a.strip()))
+          q = input('user > ').strip()
+          a = ''
+          while 1:
+            input_ids = torch.LongTensor(tok.encode(U_TKN + q + SENT + sent + S_TKN + a)).unsqueeze(dim=0)
+            pred = self(input_ids)
+            gen = tok.convert_ids_to_tokens(
+            torch.argmax(
+              pred,
+              dim=-1).squeeze().numpy().tolist())[-1]
+              if gen == EOS:
+                  break
+              a += gen.replace('▁', ' ')
+              print("Chatbot > {}".format(a.strip()))
+          return q
 
 
 parser = KoGPT2Chat.add_model_specific_args(parser)
