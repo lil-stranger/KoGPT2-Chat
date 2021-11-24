@@ -201,14 +201,14 @@ class KoGPT2Chat(LightningModule):
             input_ids = torch.LongTensor(tok.encode(U_TKN + q + SENT + sent + S_TKN + a)).unsqueeze(dim=0)
             pred = self(input_ids)
             gen = tok.convert_ids_to_tokens(
-            torch.argmax(
-              pred,
-              dim=-1).squeeze().numpy().tolist())[-1]
-              if gen == EOS:
-                  break
-              a += gen.replace('▁', ' ')
-              print("Chatbot > {}".format(a.strip()))
-          return q
+              torch.argmax(
+                pred,
+                dim=-1).squeeze().numpy().tolist())[-1]
+            if gen == EOS:
+              break
+            a += gen.replace('▁', ' ')
+          print("Chatbot > {}".format(a.strip()))
+         return q
 
 
 parser = KoGPT2Chat.add_model_specific_args(parser)
